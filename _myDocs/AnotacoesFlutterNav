@@ -1,0 +1,85 @@
+
+Anotações Navegação Flutter
+---------------------------
+
+
+    - Criar componentes com o nome Screen - para identificação
+
+    - Cada screen independente deve partir do seu Scaffold
+
+    - Criamos uma tela de grid com GridView
+        - bem poderoso.
+        - Tem um método builder indicado par grandes volumes
+        - Criamos um quadrado estiloso com Container X BoxDecoration X LinearGradient
+        - Usamos Inkwell para torna-lo clicável e com retorno visual da ação.
+        - Passamos um ponteiro de função para disparar a navegação
+
+    - Criamos outra tela para exibir uma lista de refeições
+        - usaremos ListView.builder para ser scrolável e escalável
+    
+    - No click, navegaremos com
+        Navigator.push(ctx, rota)
+        Flutter adiciona botão back (pop) automaticamente
+
+        pushReplacement
+
+    - Montaremos um card para refeição
+        - Card
+        - Inkwell para pegar click
+        - Stack para posicionar controles un sobre os outros
+        - FadeInImage para animação macia
+        - pacote: transparent_image
+        - MemoryImage
+        - NetworkImage para obter imagem da URL
+        - Positioned
+
+    ---------------------------
+    Navegação com Tab
+
+        Dentro do Scaffold, usaremos appbar, body e...  bottomNavigationBar
+
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: _selectPage,
+          currentIndex: _selectedPageIndex,
+          items: const [
+            BottomNavigationBarItem( icon: Icon(Icons.set_meal), label: 'Cateogrias'),
+            BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favoritos'),
+          ],
+        )
+
+        ** Potencial problema dos 2 Scaffolds
+            - Na tela categorias tiramos o Scaffold, pois usamos o anterior
+
+            - Na tela Favoritos, precisaremos do Scaffold se a tela for chamada para exibir as 
+              refeições de uma categoria, fora do TAB.
+              Por isso vamos fazer a exibição do Scaffold ser opcional, caso não exista título
+
+    Exibimos mensagem com ScaffoldMessenger / Snackbar
+
+    ---------------------------
+    Drawer
+    DrawerHeader, ListTile, SwitchListTile
+
+    WillPopScope        obs - está deprecado - trocar por PopScope
+
+        onWilllPop -> retorna um Future quando o usuário sair da tela
+
+    Ai usamos o push com async / await
+    ainda "tipamos" o retorno com push<T>
+
+    ---------------------------
+    NamedRoutes
+
+    https://docs.flutter.dev/ui/navigation#using-named-routes
+
+        @override
+        Widget build(BuildContext context) {
+            return MaterialApp(
+                routes: {
+                    '/': (context) => HomeScreen(),
+                    '/details': (context) => DetailScreen(),
+                },
+            );
+        }
+
+    ** não entendi por que Max alega que não é recomendável.
